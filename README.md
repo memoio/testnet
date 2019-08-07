@@ -1,2 +1,0 @@
-# testnet
-infomations for testnet
