@@ -4,7 +4,7 @@
 
 ## 获取账号
 
-//todo
+//contact xxx
 
 ## 获取 mefs 镜像
 
@@ -76,7 +76,7 @@ $ docker pull memoio/mefs
 - 上传测试文件
 
 ```shell
-> mefs lfs put_object test.dat bucket01 --addr=用户地址
+> mefs lfs put_object /localpath/test.dat bucket01 --addr=用户地址
 ```
 
 ![1565126726354](./pic/1565126726354.png)
