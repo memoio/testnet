@@ -19,13 +19,13 @@
 - 启动 docker
 
 ```shell
-> sudo docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs
+> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs
 ```
 
 - 进入终端
 
 ```shell
-> sudo docker exec -it 9d304 bash
+> docker exec -it 9d304 bash
 ```
 
 - 运行 mefs lfs，检查是否安装成功
@@ -37,10 +37,10 @@
 - mefs 初始化
 
 ```shell
-> mefs init --sk=<your private key> --pwd=<your password>
+> mefs init --netKey=testnet --sk=<your private key> --pwd=<your password>
 ```
 
-- 启动 mefs 的网络实例，可后台运行
+- 启动 mefs 的实例，可后台运行
 
 ```shell
 > mefs daemon --netKey=testnet --pwd=<your password> >> log 2>&1 &

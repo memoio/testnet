@@ -43,7 +43,7 @@
 - mefs 初始化
 
 ```shell
-> mefs init --sk=<your private key> --pwd=<your password>
+> mefs init --netKey=testnet --sk=<your private key> --pwd=<your password>
 ```
 
 - 启动 mefs 的网络实例，可后台运行
