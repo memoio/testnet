@@ -36,13 +36,13 @@
 
 - mefs 初始化
 
-```sh
+```shell
 mefs init --sk=<your private key> --pwd=<your password> 
 ```
 
 - 启动 mefs 的网络实例，可后台运行
 
-```
+```shell
 mefs daemon --netKey=testnet --pwd=<your password> >> log 2>&1 &
 ```
 
