@@ -46,7 +46,7 @@
 > mefs init --netKey=testnet --sk=<your private key> --pwd=<your password>
 ```
 
-- 启动 mefs 的网络实例，可后台运行
+- 启动 mefs 的实例，可后台运行
 
 ```shell
 > mefs daemon --netKey=testnet --pwd=<your password> --dur=<your storage duration> --cap=<your storage capacity> --price=<your storage price> --rdo=false --pos=true
