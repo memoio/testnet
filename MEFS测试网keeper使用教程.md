@@ -2,6 +2,10 @@
 
 [TOC]
 
+## 运行要求
+
+docker 环境，外网 ip，4001 端口开放
+
 ## 获取账号
 
 // contact xxx
