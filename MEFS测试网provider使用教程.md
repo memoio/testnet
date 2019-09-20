@@ -63,5 +63,5 @@ docker 环境，外网 ip，4001 端口开放
 ## 设置主 keeper
 
 ```
-> mefs contarct addMasterKeeper <keeper address>
+> mefs contarct addMasterKeeper <keeper account address>
 ```
