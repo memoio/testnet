@@ -14,10 +14,6 @@ docker 环境，外网 ip，4001 端口开放
 
 // visit xxx
 
-## 设置主 keeper
-
-// visit xxx
-
 ## 获取 mefs 镜像
 
 将 docker 镜像 pull 下来
@@ -63,3 +59,9 @@ docker 环境，外网 ip，4001 端口开放
 - price: 提供的存储价格，按 wei 计算，默认是 400000000000；即 3 美元/(TB\*月)
 - rdo：是否重新部署 offer 合约，默认是 false。
 - pos：是否使用冷启动功能，默认是 false，不开启；若使用，需要保证可用空间大于质押的空间
+
+## 设置主 keeper
+
+```
+> mefs contarct addMasterKeeper <keeper address>
+```
