@@ -1,5 +1,7 @@
 # Q&A
 
+## common
+
 - 账户和私钥是什么？
 
 ```
@@ -53,6 +55,8 @@ data存储数据块的内容，用户的数据最终是以数据块的方式存�
 在mefs daemon的启动过程中，可以查看输出的提示信息；也可以在运行过程中，运行`mefs test localinfo`查看自己的角色。
 ```
 
+## user
+
 - user 的 LFS 功能是什么？
 
 ```
@@ -87,6 +91,28 @@ user启动lfs的时候，可以选择使用默认参数；调低price参数，�
   重新启动LFS，设置新的参数，rdo设置为true；
   ```
 
+- LFS 的操作的常见错误有哪些？
+
+  - 创建 bucket 的时候显示 bucket 已存在
+
+  ```
+  这说明已经用这个名字创建过bucket，现在bucket删除，只做标记记录，不是真正的删除，因此即使删除了bucket，再次使用此名字创建还是会显示bucket已存在。
+  ```
+
+  - 下载的时候，显示文件已存在
+
+  ```
+  这是由于当前目录已存在此文件，可以换一个目录下载，或者将当前目录下的文件重命名。
+  ```
+
+  - 上传的时候，显示文件已存在
+
+  ```
+  这说明当前上传的bucket中已有这个名字的文件，现在文件删除，只做标记记录，不是真正的删除，因此即使删除了文件，再次使用此名字创建还是会显示文件已存在。可以修改上传到的路径，例如`mefs lfs put_object objectName bucketName/<new dir name>`，上传到bucketName对应的<new dir name>的目录下。
+  ```
+
+## provider
+
 - provider 的 pos 是什么？
 
 ```
@@ -104,6 +130,8 @@ provider在启动的时候，重新设置价格参数，将rdo设置为true，�
 ```
 provider 在运行的时候，可以通过`mefs contract addMasterKeeper 0x...`设置自己的主keeper；主keeper会优先提供自己的provider，以及触发upkeeping合约中的时空支付。
 ```
+
+## others
 
 - 系统中有哪些 keeper？
 
