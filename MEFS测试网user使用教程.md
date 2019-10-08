@@ -15,7 +15,7 @@ docker 环境
 将 docker 镜像 pull 下来
 
 ```shell
-> docker pull memoio/mefs
+> docker pull memoio/mefs-user
 ```
 
 ## 启动 docker
@@ -23,7 +23,7 @@ docker 环境
 - 启动 docker
 
 ```shell
-> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs
+> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs-provider
 ```
 
 - 进入终端
