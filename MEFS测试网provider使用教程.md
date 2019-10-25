@@ -19,7 +19,7 @@ docker 环境，外网 ip，4001 端口开放
 将 docker 镜像 pull 下来
 
 ```shell
-> docker pull memoio/mefs-user
+> docker pull memoio/mefs-provider
 ```
 
 ## 启动 docker
@@ -27,7 +27,7 @@ docker 环境，外网 ip，4001 端口开放
 - 启动 docker
 
 ```shell
-> docker run -itd -v <your local path>:/root/.mefs memoio/mefs-user
+> docker run -itd -v <your local path>:/root/.mefs memoio/mefs-provider
 ```
 
 - 进入终端

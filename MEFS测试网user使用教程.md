@@ -23,7 +23,7 @@ docker 环境
 - 启动 docker
 
 ```shell
-> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs-provider
+> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs-user
 ```
 
 - 进入终端
