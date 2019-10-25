@@ -1,5 +1,14 @@
 # Q&A
 
+
+## 运行
+
+- Docker内运行mefs时候出现“Illegal instruction (core dumped)”
+
+```  
+查看宿主机的信息`dmesg -c`, 若是出现“traps: mefs[19703] trap invalid opcode ip:7fcfbb17a1b5 sp:7ffd2d73b210 error:0 in libmclbn384.so[7fcfbb165000+39000” 类似的语句， 这个错误是由动态库的引用造成，需要重新编译；需在启动的时候加上“/bin/bash -c "check_mefs.sh"；例如`docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs /bin/bash -c "check_mefs.sh"`
+```
+
 ## common
 
 - 账户和私钥是什么？
