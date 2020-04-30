@@ -10,96 +10,54 @@ docker 环境
 
 // contact xxx
 
+输入密码，获得账号，导出 keyfile
+
 ## 获取 mefs 镜像
 
 将 docker 镜像 pull 下来
 
-```shell
-> docker pull memoio/mefs-user
+```docker
+// 获取
+> sudo docker pull memoio/mefs-user:latest
 ```
 
-## 启动 docker
+## 启动
 
-- 启动 docker
-
-```shell
-> docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs-user
-```
-
-- 进入终端
+启动期间由于需要匹配合约，部署合约，耗时约 20~30 分钟
 
 ```shell
-> docker exec -it 9d304 bash
-```
-
-- 运行 mefs lfs，检查是否安装成功
-
-## 启动 mefs
-
-每个命令的参数解释见[使用文档](https://github.com/memoio/docs)
-
-- mefs 初始化
-
-```shell
-> mefs init --netKey=testnet --sk=<your private key> --pwd=<your password>
-```
-
-- 启动 mefs 的实例，可后台运行
-
-```shell
-> mefs daemon --netKey=testnet --pwd=<your password> >> log 2>&1 &
-```
-
-### 用户空间 lfs 的使用
-
-#### 启动用户
-
-启动期间由于需要匹配合约，部署合约，耗时约 10~20 分钟
-
-```shell
-> mefs lfs start --pwd=<your password> --dur=<desired storage duration> --cap=<desired storage capacity> --price=<desired storage price> --ks=<desired keeper count> --ps=<desired provider count>
+// 启动docker; 4001用于网络连接，5080用于S3接口
+sudo docker run -d --stop-timeout 30 \
+    -p 4001:4001 \
+    -p 5080:5080 \
+    -v <storage dir>:/root \
+    -e WALLET="0x..." \
+    -e PASSWORD="<your password>" \
+    -e STORAGESIZE="1TB" \
+    -e GATEWAY="true" \
+    --mount type=bind,source="<keystore dir>",destination=/app/keystore \
+    --name <container name> memoio/mefs-user:latest
 ```
 
 参数解释：
 
-- dur: 提供的存储时间长度；按天计算， 默认是 100；
-- cap：提供的存储大小；按 MB 计算，默认是 1000；
-- price: 提供的存储价格，按 wei 计算，默认是 400000000000；即 3 美元/(TB\*月)
-- ks: 需要的 keeper 的数目，默认是 2；
-- ps：需要的 provider 的数目，默认是 6；
+- WALLET：用户地址（0x...）；require；
+- PASSWORD: keyfile 的密码，若是以 docker 后台方式运行，必要；以前台方式运行，可以在运行过程中输入；
+- STORAGESIZE：使用的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 100GB；
+- GATEWAY：是否开启 gateway 模式，开启后，5080 端口对外提供 minio S3 接口服务；用户名为 WALLET，密码为 PASSWORD；默认开启；
+- storage dir：数据目录；
+- keystore dir：注册后导出的 keyfile 所在的位置，keyfile 的名字包含 <WALLET>；
 
-#### 创建桶
+日志文件：
+<storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
+在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志。
 
-可以在该用户的加密存储空间 lfs 中新建 bucket。
-
-```shell
-> mefs lfs create_bucket bucket01 --pl=<redundance policy> --dc=<data count> --pc=<parity count>
-```
-
-参数解释：
-
-- pl：数据冗余策略，1 为 RS 码， 2 为多副本，默认是 1；
-- dc：数据块个数，默认为 3；dc+pc 不能大于 provider 的数目；
-- pc：冗余块个数，默认为 2；
-
-#### 上传测试文件
+## 进入终端
 
 ```shell
-> mefs lfs put_object /localpath/test.dat bucket01
+> sudo docker exec -it <container name> bash
 ```
 
-#### 下载文件，检验 md5 值是否正确
+- cli 方式使用见命令文档
 
-```shell
-> mefs lfs get_object bucket01 test.dat
-```
-
-#### 查看 lfs 空间的信息
-
-```shell
-> mefs lfs show_storage
-```
-
-## 3. HTTP-Client 使用
-
-go 接口[mefs-http-api-go](https://github.com/memoio/mefs-http-api-go)
+- S3 接口使用见 S3 文档
