@@ -178,11 +178,11 @@ provider 在运行的时候，可以通过`mefs contract addMasterKeeper 0x...`�
 ```
 运行`mefs config Eth`，可以查看自己连接的区块链的地址，
 若想修改，可以运行`mefs config Eth xxx`, xxx为链的api地址。
-格式为`http://ip:port`
+格式为`http://ip:port`；例如`mefs-user config Eth http://47.92.5.51:8101`
 ```
 
 - 如何查看自己的网络连接状态？
 
 ```
-运行`mefs swarm peers`查看自己连接的节点。
+运行`mefs-user swarm peers`或`mefs-provider swarm peers`查看自己连接的节点。
 ```
