@@ -12,7 +12,7 @@
 
 // contact xxx
 
-输入密码，获得账号，导出 keyfile
+输入密码（至少 8 位），获得账号，导出 keyfile
 
 ## 注册 provider
 
