@@ -87,7 +87,7 @@ sudo docker run -d --stop-timeout 30 \
         // 持续时间seconds
         "Duration": 8640000000,
         // 价格 wei/(MB*hour)
-        "Price": 400000000,
+        "Price": 400000000000,
         // upkeeping合约地址
         "UpKeepingAddr": "0x9B9fF75beC2Fff8cA2048315bc18c89e77826473",
         "QueryAddr": "0xD39af596b7F1452695955B9aC8dB00A7f15c79f8",
