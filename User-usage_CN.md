@@ -60,6 +60,56 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
+### 查看信息
+
+```shell
+> mefs-user lfs info
+```
+
+可以看到类似如下信息：
+
+```
+    {
+        // 用户地址
+        "UserAddr": "0xC2b27Aa18A1930D5b403b2021D8f52044C7B092B",
+        // 用户余额
+        "Balance": 1999996774493642600,
+        // upkeeping合约的金额
+        "UkBalance": 3996313779300347569,
+        // 总空间 bytes
+        "TotalBytes": 104857600,
+        // 已使用空间 bytes
+        "UsedBytes": 48441414,
+        // 开始时间
+        "StartTime": "2020-05-07 Thu 18:21:25 CST",
+        // 结束时间
+        "EndTime": "2294-02-20 Tue 18:21:25 CST",
+        // 持续时间seconds
+        "Duration": 8640000000,
+        // 价格 wei/(MB*hour)
+        "Price": 400000000000,
+        // upkeeping合约地址
+        "UpKeepingAddr": "0x9B9fF75beC2Fff8cA2048315bc18c89e77826473",
+        "QueryAddr": "0xD39af596b7F1452695955B9aC8dB00A7f15c79f8",
+        // keeper的信息
+        "KeeperAddrs": [
+                "0x1adCa07Ae9bC70fc8c8d4C972176d1a1C810f0Ec",
+                "0xE434216FDF5573D8334Cb65cA2Df053e8A6f76C5",
+                "0xE561B5EAB2B97FAba9965eCC0179848D317ec2D3"
+        ],
+        // providers的信息
+        "ProviderAddrs": [
+                "0x2DE6e2fB47c7DE57D815A13A1FaC4eA62aa3fed8",
+                "0x303466ccA8F7cc5f946507091AA962dd95CAA84A",
+                "0x626235394f88ab0b5303D9638F04BC123728d201",
+                "0xaBC8701a6Fd73877b54414CaaE97E3d2590a0bb7",
+                "0xBB7adDBd37290d96b5db242B2fBdA03ED8c49983",
+                "0xe2F6ED90EAF55B6A8Da297902C209A905f1d62E6"
+        ]
+}
+
+```
+
 ### 使用 LFS（cli）
 
 mefs 为每一个用户提供了一个专属的加密存储空间（LFS），每个存储空间包含多个桶（bucket），桶是用户用于存储对象（object）的容器，每个桶包含多个对象（object），我们可以把对象想象成文件。桶的冗余策略可以在创建的时候指定（存储在该桶中的所有对象都使用该种冗余策略），对象的数据使用对称加密方式加密。

@@ -59,11 +59,29 @@ sudo docker run -d --stop-timeout 30 \
 <storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
 在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志。
 
-## 进入终端
+## 查看信息
 
 ```shell
 // 进入docker
 > sudo docker exec -it <container name> bash
+```
+
+```shell
+mefs-provider info
+```
+
+可以看到如下信息：
+
+```
+{
+        "DepositCapacity": 1000000,   //质押的空间 MB
+        "UsedCapacity": 527752662237, // 已使用的空间 MB
+        "DownloadIncome": null,       // to do
+        "StorageIncome": null,
+        "TotalIncome": null,
+        "DailyIncome": null,
+        "Balance": 128565273669081853 // 余额 wei
+}
 ```
 
 每个命令的参数解释见[使用文档](https://github.com/memoio/docs)
