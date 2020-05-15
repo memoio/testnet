@@ -74,13 +74,26 @@ mefs-provider info
 
 ```
 {
-        "DepositCapacity": 1000000,   //质押的空间 MB
-        "UsedCapacity": 527752662237, // 已使用的空间 MB
-        "DownloadIncome": null,       // to do
-        "StorageIncome": null,
+        // 账户地址
+        "Address": "0x4F59650c8DC9974e6f51e681a7961B4Fc91C8159",
+        // 账户余额 wei
+        "Balance": 128466273613379553,
+        // 质押的空间 bytes
+        "DepositCapacity": 1048576000000,
+        // 已使用空间 bytes
+        "UsedCapacity": 527928684947,
+        // Offer合约信息
+        "OfferAddress": "8MGEvzVcsdin1bTA1JBcX2MvrrXYgR",
+        "OfferCapacity": 1048576000000,
+        // 存储价格 weiDollar/(MB*hour)
+        "OfferPrice": 4000000000,
+        "OfferDuration": 746496000000,
+        "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
+        // 收入细节信息，待添加
         "TotalIncome": null,
-        "DailyIncome": null,
-        "Balance": 128565273669081853 // 余额 wei
+        "DownloadIncome": null,
+        "StorageIncome": null,
+        "LastDayIncome": null
 }
 ```
 
