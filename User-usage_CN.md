@@ -69,42 +69,97 @@ sudo docker run -d --stop-timeout 30 \
 可以看到类似如下信息：
 
 ```
-    {
+{
         // 用户地址
         "UserAddr": "0xC2b27Aa18A1930D5b403b2021D8f52044C7B092B",
         // 用户余额
         "Balance": 1999996774493642600,
-        // upkeeping合约的金额
-        "UkBalance": 3996313779300347569,
-        // 总空间 bytes
-        "TotalBytes": 104857600,
-        // 已使用空间 bytes
-        "UsedBytes": 48441414,
-        // 开始时间
-        "StartTime": "2020-05-07 Thu 18:21:25 CST",
-        // 结束时间
-        "EndTime": "2294-02-20 Tue 18:21:25 CST",
-        // 持续时间seconds
-        "Duration": 8640000000,
-        // 价格 weiDollar/(MB*hour)
-        "Price": 4000000000,
-        // upkeeping合约地址
-        "UpKeepingAddr": "0x9B9fF75beC2Fff8cA2048315bc18c89e77826473",
+        // query合约地址
         "QueryAddr": "0xD39af596b7F1452695955B9aC8dB00A7f15c79f8",
-        // keeper的信息
-        "KeeperAddrs": [
-                "0x1adCa07Ae9bC70fc8c8d4C972176d1a1C810f0Ec",
-                "0xE434216FDF5573D8334Cb65cA2Df053e8A6f76C5",
-                "0xE561B5EAB2B97FAba9965eCC0179848D317ec2D3"
+        // upkeeping信息
+        "UpkeepingInfo": {
+                // 地址
+                "UpKeepingAddr": "0x9B9fF75beC2Fff8cA2048315bc18c89e77826473",
+                // 余额
+                "UkBalance": 3993657216369792199,
+                // 需要支付
+                "NeedPay": 1562280303385894,
+                // 开始时间
+                "StartTime": "2020-05-07 Thu 18:21:25 CST",
+                // 结束时间
+                "EndTime": "2294-02-20 Tue 18:21:25 CST",
+                //持续时间seconds
+                "Duration": 8640000000,
+                // 价格  weiDollar/(MB*hour)
+                "Price": 400000000000,
+                // 总空间
+                "TotalBytes": 104857600,
+                // 已使用空间
+                "UsedBytes": 48441414
+        },
+        // keeper信息
+        "KeeperInfos": [
+                {
+                        "KeeperAddr": "0x1adCa07Ae9bC70fc8c8d4C972176d1a1C810f0Ec"
+                },
+                {
+                        "KeeperAddr": "0xE434216FDF5573D8334Cb65cA2Df053e8A6f76C5"
+                },
+                {
+                        "KeeperAddr": "0xE561B5EAB2B97FAba9965eCC0179848D317ec2D3"
+                }
         ],
-        // providers的信息
-        "ProviderAddrs": [
-                "0x2DE6e2fB47c7DE57D815A13A1FaC4eA62aa3fed8",
-                "0x303466ccA8F7cc5f946507091AA962dd95CAA84A",
-                "0x626235394f88ab0b5303D9638F04BC123728d201",
-                "0xaBC8701a6Fd73877b54414CaaE97E3d2590a0bb7",
-                "0xBB7adDBd37290d96b5db242B2fBdA03ED8c49983",
-                "0xe2F6ED90EAF55B6A8Da297902C209A905f1d62E6"
+        // provider信息
+        "ProviderInfos": [
+                {
+                        "ProviderAddr": "0x2DE6e2fB47c7DE57D815A13A1FaC4eA62aa3fed8",
+                        // channel合约地址，用于读支付
+                        "ChannelAddr": "0x79c4703E208DC6e8040CdD0475377628a953615F",
+                        "StartTime": "2020-05-07 Thu 18:51:50 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 653342056
+                },
+                {
+                        "ProviderAddr": "0x303466ccA8F7cc5f946507091AA962dd95CAA84A",
+                        "ChannelAddr": "0x38a75c79C3D1cC3c9D560179BD0fff2B086A7AAf",
+                        "StartTime": "2020-05-07 Thu 18:45:47 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 523462738
+                },
+                {
+                        "ProviderAddr": "0x626235394f88ab0b5303D9638F04BC123728d201",
+                        "ChannelAddr": "0xeF1f1715b4b7725d9AAb63031978100515b38a14",
+                        "StartTime": "2020-05-07 Thu 18:41:57 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 453987690
+                },
+                {
+                        "ProviderAddr": "0xaBC8701a6Fd73877b54414CaaE97E3d2590a0bb7",
+                        "ChannelAddr": "0xE0Da93f45A5ffE5ECd988a5A785094304622b88d",
+                        "StartTime": "2020-05-07 Thu 18:41:15 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 769432176
+                },
+                {
+                        "ProviderAddr": "0xBB7adDBd37290d96b5db242B2fBdA03ED8c49983",
+                        "ChannelAddr": "0x177914b1d778F2BD5D6E3437E8c30ef147b0377e",
+                        "StartTime": "2020-05-07 Thu 18:41:57 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 342765439
+                },
+                {
+                        "ProviderAddr": "0xe2F6ED90EAF55B6A8Da297902C209A905f1d62E6",
+                        "ChannelAddr": "0xFa507e2D5e550Ae42f8765Feda68bEc662549D0D",
+                        "StartTime": "2020-05-07 Thu 18:43:41 CST",
+                        "Duration": 8640000000,
+                        "Money": 107374182400,
+                        "CostValue": 0
+                }
         ]
 }
 
