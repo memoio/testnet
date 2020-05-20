@@ -60,6 +60,58 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
+### 查看系统中的角色信息
+
+- 查看系统中所有的 keeper
+
+```shell
+> mefs-user lfs list keepers
+```
+
+输出：
+
+```
+
+```
+
+- 查看系统中所有的 provider
+
+```shell
+> mefs-user lfs list providers
+```
+
+输出：
+
+```
+
+{
+        // provider 个数
+        "ProviderCount": 13,
+        // 质押总空间
+        "PledgeBytes": 13631488000000,
+        "ProInfos": [
+                {
+                        // 地址
+                        "Address": "0x373a6F73387337873F8aFc90a7fd0e6Fa44fD4dF",
+                        // 是否在线
+                        "Online": true,
+                        // 质押空间
+                        "PledgeBytes": 1048576000000,
+                        // 质押金额 wei
+                        "PledgeMoney": 99999999010000,
+                        "PledgeTime": "2020-05-18 Mon 14:53:06 CST"
+                },
+                {
+                        "Address": "0x303466ccA8F7cc5f946507091AA962dd95CAA84A",
+                        "Online": true,
+                        "PledgeBytes": 1048576000000,
+                        "PledgeMoney": 99999999010000,
+                        "PledgeTime": "2020-05-18 Mon 14:40:50 CST"
+                },
+                ...
+        ]
+```
+
 ### 查看信息
 
 ```shell
