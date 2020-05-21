@@ -36,7 +36,7 @@
 sudo docker run -d --stop-timeout 30 \
     -p <External Port Num>:<Port Num> \
     -v <storage dir>:/root \
-    -e TRANSPORT=<Port Num>
+    -e TRANSPORT=<Port Num> \
     -e WALLET="0x..." \
     -e PASSWORD="<your password>" \
     -e STORAGESIZE="1TB" \
