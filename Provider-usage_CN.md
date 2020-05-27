@@ -93,7 +93,7 @@ mefs-provider info
         "OfferPrice": 4000000000,
         "OfferDuration": 746496000000,
         "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
-        // 总收入 wei
+        // 总收入 wei；当前延迟3天支付
         "TotalIncome": 28906159012810434,
         // 存储收入
         "StorageIncome": 7233753758195772,
