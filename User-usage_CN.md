@@ -10,7 +10,9 @@ docker 环境
 
 // contact xxx
 
-输入密码（至少 8 位），获得账号，导出 keyfile
+输入密码（至少 8 位），获得账号，导出 keyfile;
+
+若 user 默认存储 100 天 1TB 数据，则至少需要 1050 Token；
 
 ## 获取 mefs 镜像
 
