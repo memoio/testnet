@@ -14,7 +14,8 @@
 
 输入密码（至少 8 位），获得账号，导出 keyfile；
 
-若 provider 默认质押 1TB 空间，则需要 350 Token；
+1. 账号设置为 provider 角色
+2. 若默认质押 1TB 空间，则需要转账给此账号 350 Token；
 
 ## 注册 provider
 
