@@ -76,7 +76,7 @@ mefs-provider info
 可以看到如下信息：
 
 ```
-{       {
+{
         // 账户地址
         "Address": "0x4F59650c8DC9974e6f51e681a7961B4Fc91C8159",
         // 账户余额 wei
@@ -96,16 +96,14 @@ mefs-provider info
         "OfferPrice": 4000000000,
         "OfferDuration": 746496000000,
         "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
-        // 总收入 wei；当前延迟3天支付
-        "TotalIncome": 28906159012810434,
-        // 存储收入
-        "StorageIncome": 7233753758195772,
+        // 总收入 wei；
+        "TotalIncome": 194901718909553714,
+         // 存储收入; 当前延迟3天支付
+        "StorageIncome": 40480736096956608,
         // 读数据收入
-        "DownloadIncome": 0,
+        "DownloadIncome": 8684389114373,
         // 生成数据收入
-        "PosIncome": 21672405254614662
-}
-
+        "PosIncome": 154412298423482733
 }
 ```
 
