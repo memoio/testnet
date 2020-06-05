@@ -14,12 +14,12 @@
 
 输入密码（至少 8 位），获得账号，导出 keyfile；
 
-1. 账号设置为 provider 角色
-2. 若默认质押 1TB 空间，则需要转账给此账号 350 Token；
-
 ## 注册 provider
 
 // visit xxx
+
+1. 账号设置为 provider 角色
+2. 若默认质押 1TB 空间，则需要转账给此账号 350 Token；
 
 ## 获取 mefs 镜像
 
@@ -53,8 +53,8 @@ sudo docker run -d --stop-timeout 30 \
 - TRANSPORT：<Port Num>为程序的网络端口，默认为 4001；<External Port Num>为 docker 映射出去的端口，默认可以与<Port Num>相同；
 - WALLET：用户地址（0x...）；require；
 - PASSWORD: keyfile 的密码，若是以 docker 后台方式运行，必要；以前台方式运行，可以在运行过程中输入；
-- STORAGESIZE：提供的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 1TB；
-- POSENABLE：是否启用冷数据填充功能，设置 true 开启；默认为 false；
+- STORAGESIZE：提供（质押）的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 1TB；
+- POSENABLE：是否启用冷数据填充功能，设置 true 开启；默认为 false；会填充质押数据量的70\%
 - storage dir：数据目录；
 - keystore dir：注册后导出的 keyfile 所在的位置，keyfile 的名字包含 <WALLET>；
 
@@ -73,7 +73,7 @@ sudo docker run -d --stop-timeout 30 \
 mefs-provider info
 ```
 
-可以看到如下信息：
+可以看到类似如下的信息：
 
 ```
 {
@@ -91,14 +91,17 @@ mefs-provider info
         "LocalFreeBytes": 898041098240,
         // Offer合约信息
         "OfferAddress": "0x0DB479927b032d5b98bBCA3858aA71e6b4cBcaeA",
+        // 提供的存储量 bytes
         "OfferCapacity": 1048576000000,
-        存储价格 weiDollar/(MB*hour)
+        // 提供的存储价格 weiDollar/(MB*hour)
         "OfferPrice": 4000000000,
+        // 提供的存储时间长度 second
         "OfferDuration": 746496000000,
+        // 提供的存储开始时间
         "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
         // 总收入 wei；
         "TotalIncome": 194901718909553714,
-         // 存储收入; 当前延迟3天支付
+        // 存储收入; 当前延迟3天支付
         "StorageIncome": 40480736096956608,
         // 读数据收入
         "DownloadIncome": 8684389114373,
