@@ -96,24 +96,6 @@ MEFS_PATH=~/mefs-testnet mefs-user list keepers
                         "PledgeMoney": 1000000000,
                         "PledgeTime": "2020-05-25 Mon 16:00:43 CST"
                 },
-                {
-                        "Address": "0x1adCa07Ae9bC70fc8c8d4C972176d1a1C810f0Ec",
-                        "Online": true,
-                        "PledgeMoney": 1000000000,
-                        "PledgeTime": "2020-05-25 Mon 16:00:16 CST"
-                },
-                {
-                        "Address": "0xf904237239a79f535bdc77622CCfB31E3B3f83C9",
-                        "Online": true,
-                        "PledgeMoney": 1000000000,
-                        "PledgeTime": "2020-05-25 Mon 16:02:46 CST"
-                },
-                {
-                        "Address": "0xb9f827bb51a515337fCEc6bf50ee34236281526A",
-                        "Online": false,
-                        "PledgeMoney": 10000000000000000,
-                        "PledgeTime": "2020-05-21 Thu 05:28:55 CST"
-                },
                 ...
         ]
 }
