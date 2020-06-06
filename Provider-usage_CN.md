@@ -35,7 +35,6 @@ sudo docker run -it -v <your local storage dir>:/root --entrypoint="/app/create"
 ```shell
 docker run -it -v ~/docker-testa/provider:/root --entrypoint="/app/create"  memoio/mefs-provider:latest
 
-mcl is ok!
 Please input your password (at least 8): asdfghjk
 Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
 Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
