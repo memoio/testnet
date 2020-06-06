@@ -40,7 +40,7 @@ Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
 Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
 ```
 
-生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 密码为”asdfghjk“, 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile放在~/docker-testa/provider/.mefs/keystore目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"。
+生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile放在~/docker-testa/provider/.mefs/keystore目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
 
 
 + 方法2
