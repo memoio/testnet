@@ -6,14 +6,6 @@
 
 docker 环境
 
-## 获取账号
-
-// contact xxx
-
-输入密码（至少 8 位），获得账号，导出 keyfile;
-
-1. 若 user 默认存储 100 天 1TB 数据，则需要转账给此账号 1050 Token；
-
 ## 获取 mefs 镜像
 
 将 docker 镜像 pull 下来
@@ -22,6 +14,38 @@ docker 环境
 // 获取
 > sudo docker pull memoio/mefs-user:latest
 ```
+
+## 获取账号
+
+两种方法生成账号
+
+- 方法 1
+
+```shell
+sudo docker run -it -v <your local storage dir>:/root --entrypoint="/app/create"  memoio/mefs-user:latest
+
+```
+
+输入密码（至少 8 位， 默认密码 memoriae）, keyfile 放在<your local storage dir>/.mefs/keystore 目录下
+
+例如：
+
+```shell
+docker run -it -v ~/docker-testa/user:/root --entrypoint="/app/create"  memoio/mefs-user:latest
+
+Please input your password (at least 8): asdfghjk
+Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
+Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
+```
+
+生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile 放在~/docker-testa/user/.mefs/keystore 目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
+
+- 方法 2
+
+// contact xxx
+输入密码（至少 8 位），获得账号，导出 keyfile；
+
+1. 若 user 默认存储 100 天 1TB 数据，则需要转账给此账号 1050 Token；
 
 ## 启动
 
@@ -32,7 +56,7 @@ docker 环境
 sudo docker run -d --stop-timeout 30 \
     -p 4001:4001 \
     -p 5080:5080 \
-    -v <storage dir>:/root \
+    -v <your local storage dir>:/root \
     -e WALLET="0x..." \
     -e PASSWORD="<your password>" \
     -e STORAGESIZE="1TB" \
@@ -52,7 +76,20 @@ sudo docker run -d --stop-timeout 30 \
 
 日志文件：
 <storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
-在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志。
+在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志和 logs/error.log 错误日志。
+
+例如：
+
+```
+docker run -d --stop-timeout 30 -v ~/docker-testa/user:/root  -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --mount type=bind,source="/home/ubuntu/.mefs/keystore",destination=/app/keystore --name mefs-user memoio/mefs-user:latest
+```
+
+或
+
+```
+// 用方法1生成地址的时候
+docker run -it --stop-timeout 30 -v ~/docker-testa/user:/root -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --name mefs-user memoio/mefs-user:latest
+```
 
 ## 命令行操作文档
 
@@ -82,7 +119,7 @@ MEFS_PATH=~/mefs-testnet mefs-user list keepers
     "KeeperInfos": [
         {
             // 地址
-            "Address":"0xE434216FDF5573D8334Cb65cA2Df053e8A6f76C5",    
+            "Address":"0xE434216FDF5573D8334Cb65cA2Df053e8A6f76C5",
             // 是否在线
             "Online": true,
             // 此keeper质押的金额
@@ -92,7 +129,7 @@ MEFS_PATH=~/mefs-testnet mefs-user list keepers
         },
         ...
     ]
-} 
+}
 ```
 
 - 查看系统中所有的 provider
@@ -156,7 +193,7 @@ MEFS_PATH=~/mefs-testnet mefs-user list keepers
         "EndTime": "2023-02-19 Sun 16:08:48 CST",
         // 存储时长
         "Duration": "1000 day",
-        // 价格 
+        // 价格
         "Price": "3.02 Dollar/(TiB*Month) (For now, 1 Dollar = 100 Token)",
         // 总空间
         "TotalBytes": "100.00 MiB",
