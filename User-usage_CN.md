@@ -96,7 +96,7 @@ docker run -it --stop-timeout 30 -v ~/docker-testa/user:/root -e WALLET="0x32Ae5
 - 进入终端
 
 ```shell
-> sudo docker exec -it <container name> bash
+> sudo docker exec -it <container name> sh
 ```
 
 ### 查看系统中的角色信息

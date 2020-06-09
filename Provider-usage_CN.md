@@ -21,14 +21,14 @@
 
 两种方法生成账号
 
-+ 方法1
+- 方法 1
 
 ```shell
 sudo docker run -it -v <your local storage dir>:/root --entrypoint="/app/create"  memoio/mefs-provider:latest
 
 ```
 
-输入密码（至少 8 位， 默认密码memoriae）, keyfile 放在<your local storage dir>/.mefs/keystore目录下
+输入密码（至少 8 位， 默认密码 memoriae）, keyfile 放在<your local storage dir>/.mefs/keystore 目录下
 
 例如：
 
@@ -40,9 +40,9 @@ Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
 Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
 ```
 
-生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile放在~/docker-testa/provider/.mefs/keystore目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
+生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile 放在~/docker-testa/provider/.mefs/keystore 目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
 
-+ 方法2
+- 方法 2
 
 // contact xxx
 输入密码（至少 8 位），获得账号，导出 keyfile；
@@ -53,7 +53,6 @@ Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
 
 1. 账号设置为 provider 角色
 2. 若默认质押 1TB 空间，则需要转账给此账号 350 Token；
-
 
 ## 启动
 
@@ -79,20 +78,20 @@ docker run -d --stop-timeout 30 \
 - WALLET：用户地址（0x...）；require；
 - PASSWORD: keyfile 的密码，若是以 docker 后台方式运行，必要；以前台方式运行，可以在运行过程中输入；
 - STORAGESIZE：提供（质押）的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 1TB；
-- POSENABLE：是否启用冷数据填充功能，设置 true 开启；默认为 false；会填充质押数据量的70\%
+- POSENABLE：是否启用冷数据填充功能，设置 true 开启；默认为 false；会填充质押数据量的 70\%
 - storage dir：数据目录；
-- keystore dir：获取账号后的 keyfile 所在的位置（同一台机器上），keyfile 的名字包含 <WALLET>； 若使用方法1生成的地址， <you local storage dir>未改变，可不填；
+- keystore dir：获取账号后的 keyfile 所在的位置（同一台机器上），keyfile 的名字包含 <WALLET>； 若使用方法 1 生成的地址， <you local storage dir>未改变，可不填；
 
 日志文件：
 <storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
-在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志和logs/error.log错误日志。
-
+在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志和 logs/error.log 错误日志。
 
 例如：
 
 ```
 docker run -d --stop-timeout 30 -v ~/docker-testa/provider:/root  -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --mount type=bind,source="/home/ubuntu/.mefs/keystore",destination=/app/keystore --name mefs-provider memoio/mefs-provider:latest
 ```
+
 或
 
 ```
@@ -100,12 +99,11 @@ docker run -d --stop-timeout 30 -v ~/docker-testa/provider:/root  -e WALLET="0x3
 docker run -it --stop-timeout 30 -v ~/docker-testa/provider:/root -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --name mefs-provider memoio/mefs-provider:latest
 ```
 
-
 ## 查看信息
 
 ```shell
 // 进入docker
-> docker exec -it <container name> bash
+> docker exec -it <container name> sh
 ```
 
 ```shell
@@ -139,7 +137,7 @@ mefs-provider info
     "OfferDuration": "100 day",
     // 提供的存储开始时间
     "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
-    // 总收入 
+    // 总收入
     "TotalIncome": "663329927.21 Gwei",
     // 存储有用数据的收入; 当前延迟3天支付
     "StorageIncome": "44853599.37 Gwei",
