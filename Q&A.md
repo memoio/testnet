@@ -1,11 +1,53 @@
 # Q&A
 
+## 关键节点信息
+
+### provider 启动信息查看
+
+1. daemon.stdout.xxx 日志
+
+```log
+Initializing daemon...              /* 开始启动，不到这一步说明账户或者密码错误*/
+go-mefs version: v0.3.2-7794494f    /* 软件版本 */
+Repo version: 1
+System version: amd64/linux
+Golang version: go1.13.4
+Successfully raised file descriptor limit to 2048.
+Using private network:  testnet                    /*表面网络类型*/
+Swarm is limited to private network of peers with the swarm key
+Swarm key fingerprint: 2e4bbb87e7f8cbca64f6505632aa8f92
+Swarm listening on /ip4/127.0.0.1/tcp/4001         /*监听的端口*/
+Swarm listening on /ip4/172.17.0.1/tcp/4001
+Swarm listening on /ip4/172.21.10.101/tcp/4001
+Swarm listening on /p2p-circuit
+Swarm announcing /ip4/127.0.0.1/tcp/4001
+Swarm announcing /ip4/172.17.0.1/tcp/4001
+Swarm announcing /ip4/172.21.10.101/tcp/4001
+API server listening on /ip4/127.0.0.1/tcp/5001
+Network daemon is ready   /*网络进程启动成功，不能到这一步说明端口不可用，需要更换端口*/
+Starting as a provider    /*provider进程开始启动，转到运行日志*/
+```
+
+2. provider 运行日志 logs/info.log
+
+```log
+{"level":"INFO","time":"2020-05-25T16:02:20+08:00","caller":"utils/log.go:71","msg":"Mefs Logger init success"}  // 日志初始化成功
+{"level":"INFO","time":"2020-05-25T16:02:23+08:00","caller":"mefs-provider/daemon.go:362","msg":"Init BLS12_381 curve success"}  //BLS12_381 初始化成功
+{"level":"INFO","time":"2020-05-25T16:02:23+08:00","caller":"role/contracts.go:293","msg":"Begin to deploy offer contract..."}    // 开始部署合约
+{"level":"INFO","time":"2020-05-25T16:02:23+08:00","caller":"role/contracts.go:305","msg":"8MGpV2fUoVBZmHVgbC6BffQA1WL3EW (0x373a6F73387337873F8aFc90a7fd0e6Fa44fD4dF) has balance: 296635706423385865506"} // 余额，在余额不足的时候合约部署不会成功；8MGpV2fUoVBZmHVgbC6BffQA1WL3EW为网络地址，0x373a6F73387337873F8aFc90a7fd0e6Fa44fD4dF为钱包地址
+{"level":"INFO","time":"2020-05-25T16:02:23+08:00","caller":"role/contracts.go:317","msg":"Finish deploy offer contract: 8MGtBopZAF1UPMXXZaex9KtDphnftX"}  // offer合约部署成功
+{"level":"INFO","time":"2020-05-25T16:02:24+08:00","caller":"provider/provider.go:186","msg":"Get 8MGpV2fUoVBZmHVgbC6BffQA1WL3EW's contract info success"}
+{"level":"INFO","time":"2020-05-25T16:02:24+08:00","caller":"provider/provider.go:208","msg":"Provider Service is ready"}  // provider 服务启动成功；不能到这一步说明合约部署不成功，通常是余额不足
+{"level":"INFO","time":"2020-05-25T16:02:24+08:00","caller":"provider/provider.go:815","msg":"Get infos from chain start!"}  // 从链上查询信息
+{"level":"INFO","time":"2020-05-25T16:02:24+08:00","caller":"provider/provider.go:849","msg":"Send storages to keepers start!"}  // 向keeper同步信息
+{"level":"INFO","time":"2020-05-25T16:02:24+08:00","caller":"provider/pos.go:55","msg":"Start Pos Service"}  // pos设置的话，启动pos服务，生成数据
+```
 
 ## 运行
 
-- Docker内运行mefs时候出现“Illegal instruction (core dumped)”
+- Docker 内运行 mefs 时候出现“Illegal instruction (core dumped)”
 
-```  
+```
 查看宿主机的信息`dmesg -c`, 若是出现“traps: mefs[19703] trap invalid opcode ip:7fcfbb17a1b5 sp:7ffd2d73b210 error:0 in libmclbn384.so[7fcfbb165000+39000” 类似的语句， 这个错误是由动态库的引用造成，需要重新编译；需在启动的时候加上“/bin/bash -c "check_mefs.sh"；例如`docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs /bin/bash -c "check_mefs.sh"`
 ```
 
