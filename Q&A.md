@@ -48,7 +48,7 @@ Starting as a provider    /*provider进程开始启动，转到运行日志*/
 - Docker 内运行 mefs 时候出现“Illegal instruction (core dumped)”
 
 ```
-查看宿主机的信息`dmesg -c`, 若是出现“traps: mefs[19703] trap invalid opcode ip:7fcfbb17a1b5 sp:7ffd2d73b210 error:0 in libmclbn384.so[7fcfbb165000+39000” 类似的语句， 这个错误是由动态库的引用造成，需要重新编译；需在启动的时候加上“/bin/bash -c "check_mefs.sh"；例如`docker run -itd -v <your local path>:/root/.mefs -p 5001:5001 memoio/mefs /bin/bash -c "check_mefs.sh"`
+查看宿主机的信息`dmesg -c`, 若是出现“traps: mefs[19703] trap invalid opcode ip:7fcfbb17a1b5 sp:7ffd2d73b210 error:0 in libmclbn384.so[7fcfbb165000+39000” 类似的语句， 这个错误是由动态库的引用造成，需要重新编译mcl库，docker内运行/app/check_mcl
 ```
 
 ## common
@@ -70,7 +70,7 @@ mefs包含3种角色，role，keeper，provider；目前每个账户地址对应
 
 ```
 启动mefs后会有两个地址：账户地址和网络地址；账户地址格式为0x...，网络地址格式为8M...；
-这两个地址实际上是等价的，一个用于和链交互，一个用于网络连接。
+这两个地址实际上是等价的，0x...用于和链交互，8M...用于网络连接和本地保存。
 ```
 
 - 网页客户端可以做什么？
@@ -82,7 +82,7 @@ http://47.92.5.51，选择相应的角色入口，登录进入；可以进行质
 - 如何查看自己的余额？
 
 ```
-可以登录http://47.92.5.51/，查看自己的余额；也可以运行`mefs test showBalance`查看余额
+可以登录http://47.92.5.51/，查看自己的余额；也可以运行`mefs-provider info`查看余额
 ```
 
 - mefs 目录在哪里？包含哪些内容
@@ -113,7 +113,6 @@ data存储数据块的内容，用户的数据最终是以数据块的方式存�
 
 ```
 在mefs daemon的启动过程中，可以查看输出的提示信息；
-也可以在运行过程中，运行`mefs test localinfo`查看自己的角色。
 ```
 
 ## user
