@@ -117,6 +117,16 @@ mefs-provider info
 {
     // 账户地址
     "Address": "0x4F59650c8DC9974e6f51e681a7961B4Fc91C8159",
+    // 启动时间
+    "StartTime": "2020-06-18 Thu 22:05:30 CST",
+    // 在线时长
+    "UpTime": " 12 hour 24 minute 59 second",
+    // 服务是否已启动
+    "ReadyForService": true,
+    // 公网网络地址
+    "PublicNetwork": "/ip4/58.210.46.6/tcp/4120/p2p/8MH9yV7GZXhjYZeydVvZgEF3U7kxhN",
+    // 公网网络地址是否可被连通
+    "PublicReachable": true,
     // 账户余额
     "Balance": "1002.70 Token",
     // 质押的空间
