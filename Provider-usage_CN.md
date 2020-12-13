@@ -4,158 +4,86 @@
 
 ## 运行要求
 
-- 推荐配置：4 核，8G 内存，1TB 存储，20Mbps 带宽；
-- 外网 ip，4001 端口开放；
-- docker 环境；
+* 推荐配置：4核，8G内存，1TB存储，20Mbps带宽；
+* 外网ip，4001端口开放；
+* docker环境；
 
-## 获取 mefs 镜像
+## 获取Docker镜像
 
-将 docker 镜像 pull 下来
-
-```shell
-// 获取mefs-provider镜像
+```
 > docker pull memoio/mefs-provider:latest
 ```
 
-## 获取账号
-
-两种方法生成账号
-
-- 方法 1
-
-```shell
-sudo docker run -it -v <your local storage dir>:/root --entrypoint="/app/create"  memoio/mefs-provider:latest
+## 生成账号
 
 ```
-
-输入密码（至少 8 位， 默认密码 memoriae）, keyfile 放在<your local storage dir>/.mefs/keystore 目录下
-
-例如：
-
-```shell
-docker run -it -v ~/docker-testa/provider:/root --entrypoint="/app/create"  memoio/mefs-provider:latest
-
-Please input your password (at least 8): asdfghjk
-Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
-Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
+> docker run -it -v <your local storage dir>:/root --entrypoint="/app/create" memoio/mefs-provider:latest
 ```
 
-生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile 放在~/docker-testa/provider/.mefs/keystore 目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
+之后按提示输入mefs-provider的密码（至少8位，默认是memoriae），mefs-provider的keyfile存放在 < your local storage >/.mefs/keystore目录下。
 
-- 方法 2
+生成账号的例子如下：
 
-// contact xxx
-输入密码（至少 8 位），获得账号，导出 keyfile；
+```
+> docker run -it -v ~/docker-test/provider:/root --entrypoint="/app/create" memoio/mefs-provider:latest
+> please input your password(at least 8): 12345678
+> Private Key: 5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894
+  Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
+```
 
-## 注册 provider
+生成地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“，keyfile存放在~/docker-test/provider/.mefs/keystore目录下，文件名为”0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0“，密码为”12345678“.
 
-// visit xxx； or send email to xxxx
+## 注册Provider
 
-1. 账号设置为 provider 角色
-2. 若默认质押 1TB 空间，则需要转账给此账号 350 Token；
+发送邮件至 sup@memolabs.io 申请provider注册
 
-## 启动
+邮件内容：账户地址（比如上述生成的0x...）、角色（provider）
 
-要求：机器的 4001 端口可以被公网访问，或者在出口机器上有端口映射
+## 启动Provider
 
-```docker
-// 启动docker; 4001用于网络连接
-docker run -d --stop-timeout 30 \
+要求：机器的4001端口可以被公网访问，或者在出口机器上有端口映射
+
+### 启动命令：
+
+```
+//启动docker；4001端口用于网络连接
+sudo docker run -d --stop-timeout 30 \
     -p <External Port Num>:<Port Num> \
-    -v <you local storage dir>:/root \
+    -v <storage dir>:/root \
     -e TRANSPORT=<Port Num> \
     -e WALLET="0x..." \
     -e PASSWORD="<your password>" \
     -e STORAGESIZE="1TB" \
+    -e STORAGEPRICE="4000000000"
+    -e STORAGEDURATION="100"
     -e POSENABLE="false" \
     --mount type=bind,source="<keystore dir>",destination=/app/keystore \
-    --name <container name> memoio/mefs-provider:latest
+    --name <countainer name> memoio/mefs-provider:latest
 ```
 
-参数解释：
+### 参数解释：
 
-- TRANSPORT：<Port Num>为程序的网络端口，默认为 4001；<External Port Num>为 docker 映射出去的端口，默认可以与<Port Num>相同；
-- WALLET：用户地址（0x...）；require；
-- PASSWORD: keyfile 的密码，若是以 docker 后台方式运行，必要；以前台方式运行，可以在运行过程中输入；
-- STORAGESIZE：提供（质押）的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 1TB；
-- POSENABLE：是否启用冷数据填充功能，设置 true 开启；默认为 false；会填充质押数据量的 70\%
-- storage dir：数据目录；
-- keystore dir：获取账号后的 keyfile 所在的位置（同一台机器上），keyfile 的名字包含 <WALLET>； 若使用方法 1 生成的地址， <you local storage dir>未改变，可不填；
+* TRANSPORT：< Port Num > 为程序的网络端口，默认为4001；< External Port Num > 为docker映射出去的端口，默认可以与< Port Num >相同；
+* WALLET：用户地址（0x...），必须指明；
+* PASSWORD：keyfile的密码，若是以docker后台方式运行provider，则必须指明；若是以前台方式运行，可以在运行过程中输入；
+* STORAGESIZE：提供的存储空间大小，例如10GB、1000MB、1TB等，默认为1TB；
+* STORAGEPRICE：提供存储空间单价，单位token/MB/hour，默认4 * 10^9；
+* STORAGEDURATION：提供存储时间，单位day，默认100；
+* POSENABLE：是否启用冷数据填充功能，设置true开启，会填充质押数据量的 70%；默认为false；
+* storage dir：数据目录；
+* keystore dir：注册后导出的keyfile所在的位置，keyfile的名字即WALLET；
 
-日志文件：
-<storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
-在运行时，可以查看运行日志；运行出错的时候，可以查看启动日志和 logs/error.log 错误日志。
+### 日志文件：
 
-例如：
+在< storage dir >/.mefs 目录下，启动日志daemon.stdout.xx以及logs目录下的运行日志；
 
-```
-docker run -d --stop-timeout 30 -v ~/docker-testa/provider:/root  -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --mount type=bind,source="/home/ubuntu/.mefs/keystore",destination=/app/keystore --name mefs-provider memoio/mefs-provider:latest
-```
+通过运行日志，可以查看provider节点运行时的状况；运行出错时，可以查看启动日志；
 
-或
+## 进入终端
 
 ```
-// 用方法1生成地址的时候
-docker run -it --stop-timeout 30 -v ~/docker-testa/provider:/root -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --name mefs-provider memoio/mefs-provider:latest
-```
-
-## 查看信息
-
-```shell
 // 进入docker
-> docker exec -it <container name> sh
-```
-
-```shell
-// docker内执行
-mefs-provider info
-```
-
-可以看到类似如下的信息：
-
-```
-{
-    // 账户地址
-    "Address": "0x4F59650c8DC9974e6f51e681a7961B4Fc91C8159",
-    // 启动时间
-    "StartTime": "2020-06-18 Thu 22:05:30 CST",
-    // 在线时长
-    "UpTime": " 12 hour 24 minute 59 second",
-    // 服务是否已启动
-    "ReadyForService": true,
-    // 公网网络地址
-    "PublicNetwork": "/ip4/58.210.46.6/tcp/4120/p2p/8MH9yV7GZXhjYZeydVvZgEF3U7kxhN",
-    // 公网网络地址是否可被连通
-    "PublicReachable": true,
-    // 账户余额
-    "Balance": "1002.70 Token",
-    // 质押的空间
-    "PledgeBytes": "1.00 TiB",
-    // 已使用空间
-    "UsedBytes": "721.33 GiB",
-    // 生成数据空间
-    "PosBytes": "641.70 GiB",
-    // 本地可用空间
-    "LocalFreeBytes": "150.69 GiB",
-    // Offer合约地址
-    "OfferAddress": "0x0DB479927b032d5b98bBCA3858aA71e6b4cBcaeA",
-    // 提供的存储量
-    "OfferCapacity": "976.56 GiB",
-    // 提供的存储价格
-    "OfferPrice": "3.02 Dollar/(TiB*Month) (For now, 1 Dollar = 100 Token)",
-    // 提供的存储时间长度
-    "OfferDuration": "100 day",
-    // 提供的存储开始时间
-    "OfferStartTime": "2020-05-15 Fri 04:42:44 CST",
-    // 总收入
-    "TotalIncome": "663329927.21 Gwei",
-    // 存储有用数据的收入; 当前延迟3天支付
-    "StorageIncome": "44853599.37 Gwei",
-    // 读数据收入
-    "DownloadIncome": "8684.39 Gwei",
-    // 生成数据收入，当前延迟1-3天支付
-    "PosIncome": "618467643.45 Gwei"
-}
+> sudo docker exec -it <container name> bash
 ```
 
 每个命令的参数解释见[使用文档](https://github.com/memoio/docs)

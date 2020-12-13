@@ -17,10 +17,6 @@ docker 环境
 
 ## 获取账号
 
-两种方法生成账号
-
-- 方法 1
-
 ```shell
 sudo docker run -it -v <your local storage dir>:/root --entrypoint="/app/create"  memoio/mefs-user:latest
 
@@ -40,16 +36,15 @@ Address: 0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0
 
 生成的地址为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0", 私钥为”5cac2aaf3aa4c086a381cc0e74fdc3d685a99db5d320a2e0265ea426cf3d7894“；keyfile 放在~/docker-testa/user/.mefs/keystore 目录下，名字为"0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0"，密码为”asdfghjk“,。
 
-- 方法 2
+## 申请测试代币
 
-// contact xxx
-输入密码（至少 8 位），获得账号，导出 keyfile；
+发送邮件至 sup@memolabs.io 申请user测试代币
 
-1. 若 user 默认存储 100 天 1TB 数据，则需要转账给此账号 1050 Token；
+邮件内容：账户地址（比如上述生成的0x...）、角色（user）
 
 ## 启动
 
-启动期间由于需要匹配合约，部署合约，耗时约 20~30 分钟
+启动期间由于需要匹配合约，部署合约，耗时约 30 分钟
 
 ```shell
 // 启动docker; 4001用于网络连接，5080用于S3接口
@@ -72,7 +67,7 @@ sudo docker run -d --stop-timeout 30 \
 - STORAGESIZE：使用的存储空间大小，例如 10GB，1000MB，1TB 等；默认为 100GB；
 - GATEWAY：是否开启 gateway 模式，开启后，5080 端口对外提供 minio S3 接口服务；用户名为 WALLET，密码为 PASSWORD；默认开启；
 - storage dir：数据目录；
-- keystore dir：注册后导出的 keyfile 所在的位置，keyfile 的名字包含 <WALLET>；
+- keystore dir：注册后导出的 keyfile 所在的位置，keyfile 的名字即<WALLET>；
 
 日志文件：
 <storage dir>/.mefs 下 启动日志 daemon.stdout.xx 以及 logs 目录内的运行日志；
@@ -87,7 +82,6 @@ docker run -d --stop-timeout 30 -v ~/docker-testa/user:/root  -e WALLET="0x32Ae5
 或
 
 ```
-// 用方法1生成地址的时候
 docker run -it --stop-timeout 30 -v ~/docker-testa/user:/root -e WALLET="0x32Ae578B69c2e3B484DEB01F6B5E65b9a61bC2a0" -e PASSWORD="asdfghjk" --name mefs-user memoio/mefs-user:latest
 ```
 
@@ -239,7 +233,7 @@ user 可以通过命令行，浏览器，以及 sdk（golang 版本） 的方式
 命令描述：create_bucket 根据 BucketName 名字创建桶，每个桶可以设置不同的冗余策略，冗余策略为多副本（multiple replicas）或者纠删码（Reed-Solomon Codes）,可以调整数据块和校验块的个数来决定冗余水平。默认使用 3 个数据块和 2 个校验块的纠删码，可以容忍两个块的丢失。
 
 ```shell
-> mefs lfs create_bucket <BucketName> --policy=<redundancy> --dc=<data count> --pc=<parity count> --addr=<public key>
+> mefs-user lfs create_bucket <BucketName> --policy=<redundancy> --dc=<data count> --pc=<parity count> --addr=<public key>
 ```
 
 参数解释：
@@ -269,7 +263,7 @@ BucketName: <BucketName> // 创建的桶的名字
 命令描述：list_buckets 显示出此用户创建的所有的桶，包含每个桶的名字(BucketName)，创建时间(Ctime)，冗余策略(Policy)和冗余参数(DataCount、ParityCount)
 
 ```shell
-> mefs lfs list_buckets --addr=<public key>
+> mefs-user lfs list_buckets --addr=<public key>
 ```
 
 参数解释：
@@ -299,7 +293,7 @@ BucketName: <BucketName>
 命令描述：若 BucketName 名字的桶存在，head_bucket 显示此桶的创建时间，冗余策略和冗余参数；若不存在，返回桶不存在。
 
 ```shell
-> mefs lfs head_bucket <BucketName> --addr=<public key>
+> mefs-user lfs head_bucket <BucketName> --addr=<public key>
 ```
 
 参数解释：
@@ -326,7 +320,7 @@ BucketName: <BucketName>
 命令描述：若 BucketName 名字的桶存在，delete_bucket 删除此桶；若不存在，返回桶不存在。只有在桶内为空的时候才会删除，否则返回桶不为空。
 
 ```shell
-> mefs lfs delete_bucket <BucketName> --addr=<public key>
+> mefs-user lfs delete_bucket <BucketName> --addr=<public key>
 ```
 
 参数解释：
@@ -355,7 +349,7 @@ BucketName: <BucketName>
 命令描述：put_object 向 BucketName 桶内上传一个名为 ObjectName 的对象；若桶不存在，返回桶不存在；若对象已存在，则返回对象已存在。
 
 ```shell
-> mefs lfs put_object <ObjectName> <BucketName> --addr=<public key>
+> mefs-user lfs put_object <ObjectName> <BucketName> --addr=<public key>
 ```
 
 参数解释：
@@ -383,7 +377,7 @@ ObjectName: <ObjectName>  // 对象的名字
 命令描述：get_object 从 BucketName 桶内下载一个名为 ObjectName 的对象；若桶不存在，返回桶不存在；若对象不存在，则返回对象不存在。
 
 ```shell
-mefs lfs get_object <BucketName> <ObjectName> --o=<OutputName> --addr=<public key>
+mefs-user lfs get_object <BucketName> <ObjectName> --o=<OutputName> --addr=<public key>
 ```
 
 参数解释：
@@ -404,7 +398,7 @@ BucketName：桶的名字；
 命令描述：list_objects 列出 BucketName 桶内所有的对象，包括对象大小，创建时间，MD5 值，是否是目录，最近被挑战的时间。
 
 ```shell
-mefs lfs list_objects <BucketName> --addr=<public key>
+mefs-user lfs list_objects <BucketName> --addr=<public key>
 ```
 
 参数解释：
@@ -436,7 +430,7 @@ ObjectName: <ObjectName>
 命令描述：head_object 显示 BucketName 桶内 ObjectName 对象的大小，MD5 值，创建时间，是否为目录，最近被挑战的时间；
 
 ```shell
-mefs lfs head_object <BucketName> <ObjectName> --addr=<public key>
+mefs-user lfs head_object <BucketName> <ObjectName> --addr=<public key>
 ```
 
 参数解释：
@@ -464,7 +458,7 @@ ObjectName: <ObjectName>
 命令描述：delete_object 从 BucketName 桶内删除 ObjectName 对象。
 
 ```shell
- mefs lfs delete_object <BucketName> <ObjectName> --addr=<public key>
+ mefs-user lfs delete_object <BucketName> <ObjectName> --addr=<public key>
 ```
 
 参数解释：
@@ -493,7 +487,7 @@ ObjectName: <ObjectName>
 命令描述：list_keepers 列出与此 user 签署 UpKeeping 合约的 keeper
 
 ```shell
-mefs lfs list_keepers
+mefs-user lfs list_keepers
 ```
 
 输出为对应的 keeper id
@@ -503,7 +497,7 @@ mefs lfs list_keepers
 命令描述：list_providers 列出给此 user 存储数据的 provider
 
 ```shell
-mefs lfs list_providers
+mefs-user lfs list_providers
 ```
 
 输出为对应的 provider id
@@ -515,7 +509,7 @@ mefs lfs list_providers
 命令描述：fsync 手动刷新 lfs 的元数据，此命令在 keeper 上执行。元数据包括 SuperBlock、BucketInfo、ObjectInfo
 
 ```shell
-mefs lfs fsync
+mefs-user lfs fsync
 ```
 
 输出为 Flush Success
@@ -525,7 +519,7 @@ mefs lfs fsync
 命令描述：show_storage 查询用户的使用空间，即用户的所有 bucket 中共存储了多少数据，单位是 kb
 
 ```shell
-mefs lfs show_storage --addr=<public key>
+mefs-user lfs show_storage --addr=<public key>
 ```
 
 参数解释：
@@ -718,12 +712,12 @@ if err != nil {
 
 **参数**
 
-| 参数           | 类型            | 描述                                                                     |
-| :------------- | :-------------- | :----------------------------------------------------------------------- |
-| `bucketName`   | _string_        | 存储桶名称                                                               |
-| `objectPrefix` | _string_        | 要列举的对象前缀                                                         |
+| 参数           | 类型            | 描述                                                         |
+| :------------- | :-------------- | :----------------------------------------------------------- |
+| `bucketName`   | _string_        | 存储桶名称                                                   |
+| `objectPrefix` | _string_        | 要列举的对象前缀                                             |
 | `recursive`    | _bool_          | `true`代表递归查找，`false`代表类似文件夹查找，以'/'分隔，不查子文件夹。 |
-| `doneCh`       | _chan struct{}_ | 在该 channel 上结束 ListObjects iterator 的一个 message。                |
+| `doneCh`       | _chan struct{}_ | 在该 channel 上结束 ListObjects iterator 的一个 message。    |
 
 **返回值**
 
@@ -766,12 +760,12 @@ for object := range objectCh {
 
 **参数**
 
-| 参数           | 类型            | 描述                                                                     |
-| :------------- | :-------------- | :----------------------------------------------------------------------- |
-| `bucketName`   | _string_        | 存储桶名称                                                               |
-| `objectPrefix` | _string_        | 要列举的对象前缀                                                         |
+| 参数           | 类型            | 描述                                                         |
+| :------------- | :-------------- | :----------------------------------------------------------- |
+| `bucketName`   | _string_        | 存储桶名称                                                   |
+| `objectPrefix` | _string_        | 要列举的对象前缀                                             |
 | `recursive`    | _bool_          | `true`代表递归查找，`false`代表类似文件夹查找，以'/'分隔，不查子文件夹。 |
-| `doneCh`       | _chan struct{}_ | 在该 channel 上结束 ListObjects iterator 的一个 message。                |
+| `doneCh`       | _chan struct{}_ | 在该 channel 上结束 ListObjects iterator 的一个 message。    |
 
 **返回值**
 
@@ -815,14 +809,14 @@ for object := range objectCh {
 
 **minio.GetObjectOptions**
 
-| 参数             | 类型                | 描述                                                                                            |
-| :--------------- | :------------------ | :---------------------------------------------------------------------------------------------- |
+| 参数             | 类型                | 描述                                                         |
+| :--------------- | :------------------ | :----------------------------------------------------------- |
 | `opts.Materials` | _encrypt.Materials_ | `encrypt`包提供的对流加密的接口，(更多信息，请看https://godoc.org/github.com/minio/minio-go/v6) |
 
 **返回值**
 
-| 参数     | 类型             | 描述                                                                                                    |
-| :------- | :--------------- | :------------------------------------------------------------------------------------------------------ |
+| 参数     | 类型             | 描述                                                         |
+| :------- | :--------------- | :----------------------------------------------------------- |
 | `object` | _\*minio.Object_ | *minio.Object*代表了一个 object reader。它实现了 io.Reader, io.Seeker, io.ReaderAt and io.Closer 接口。 |
 
 **示例**
@@ -886,8 +880,8 @@ if err != nil {
 
 **返回值**
 
-| 参数     | 类型             | 描述                                                                                                    |
-| :------- | :--------------- | :------------------------------------------------------------------------------------------------------ |
+| 参数     | 类型             | 描述                                                         |
+| :------- | :--------------- | :----------------------------------------------------------- |
 | `object` | _\*minio.Object_ | *minio.Object*代表了一个 object reader。它实现了 io.Reader, io.Seeker, io.ReaderAt and io.Closer 接口。 |
 
 **示例**
@@ -951,30 +945,30 @@ if err != nil {
 
 **参数**
 
-| 参数         | 类型                     | 描述                                                                             |
-| :----------- | :----------------------- | :------------------------------------------------------------------------------- |
-| `bucketName` | _string_                 | 存储桶名称                                                                       |
-| `objectName` | _string_                 | 对象的名称                                                                       |
-| `reader`     | _io.Reader_              | 任意实现了 io.Reader 的 GO 类型                                                  |
-| `objectSize` | _int64_                  | 上传的对象的大小，-1 代表未知。                                                  |
+| 参数         | 类型                     | 描述                                                         |
+| :----------- | :----------------------- | :----------------------------------------------------------- |
+| `bucketName` | _string_                 | 存储桶名称                                                   |
+| `objectName` | _string_                 | 对象的名称                                                   |
+| `reader`     | _io.Reader_              | 任意实现了 io.Reader 的 GO 类型                              |
+| `objectSize` | _int64_                  | 上传的对象的大小，-1 代表未知。                              |
 | `opts`       | _minio.PutObjectOptions_ | 允许用户设置可选的自定义元数据，内容标题，加密密钥和用于分段上传操作的线程数量。 |
 
 **minio.PutObjectOptions**
 
-| 属性                           | 类型                    | 描述                                                                                            |
-| :----------------------------- | :---------------------- | :---------------------------------------------------------------------------------------------- |
-| `opts.UserMetadata`            | _map[string]string_     | 用户元数据的 Map                                                                                |
-| `opts.Progress`                | _io.Reader_             | 获取上传进度的 Reader                                                                           |
-| `opts.ContentType`             | _string_                | 对象的 Content type， 例如"application/text"                                                    |
-| `opts.ContentEncoding`         | _string_                | 对象的 Content encoding，例如"gzip"                                                             |
-| `opts.ContentDisposition`      | _string_                | 对象的 Content disposition, "inline"                                                            |
-| `opts.ContentLanguage`         | _string_                | 对象的 Content Language, "French"                                                               |
-| `opts.CacheControl`            | _string_                | 指定针对请求和响应的缓存机制，例如"max-age=600"                                                 |
-| `opts.Mode`                    | _\*minio.RetentionMode_ | 设置保留模式, e.g "COMPLIANCE"                                                                  |
-| `opts.RetainUntilDate`         | _\*time.Time_           | 保留模式的有效期                                                                                |
+| 属性                           | 类型                    | 描述                                                         |
+| :----------------------------- | :---------------------- | :----------------------------------------------------------- |
+| `opts.UserMetadata`            | _map[string]string_     | 用户元数据的 Map                                             |
+| `opts.Progress`                | _io.Reader_             | 获取上传进度的 Reader                                        |
+| `opts.ContentType`             | _string_                | 对象的 Content type， 例如"application/text"                 |
+| `opts.ContentEncoding`         | _string_                | 对象的 Content encoding，例如"gzip"                          |
+| `opts.ContentDisposition`      | _string_                | 对象的 Content disposition, "inline"                         |
+| `opts.ContentLanguage`         | _string_                | 对象的 Content Language, "French"                            |
+| `opts.CacheControl`            | _string_                | 指定针对请求和响应的缓存机制，例如"max-age=600"              |
+| `opts.Mode`                    | _\*minio.RetentionMode_ | 设置保留模式, e.g "COMPLIANCE"                               |
+| `opts.RetainUntilDate`         | _\*time.Time_           | 保留模式的有效期                                             |
 | `opts.ServerSideEncryption`    | _encrypt.ServerSide_    | `encrypt`包提供的对流加密的接口，(更多信息，请看https://godoc.org/github.com/minio/minio-go/v6) |
-| `opts.StorageClass`            | _string_                | 指定对象的存储类 MinIO 服务器支持的值有 `REDUCED_REDUNDANCY` 和 `STANDARD`                      |
-| `opts.WebsiteRedirectLocation` | _string_                | 指定对象重定向到同一个桶的其他的对象或者外部的 URL                                              |
+| `opts.StorageClass`            | _string_                | 指定对象的存储类 MinIO 服务器支持的值有 `REDUCED_REDUNDANCY` 和 `STANDARD` |
+| `opts.WebsiteRedirectLocation` | _string_                | 指定对象重定向到同一个桶的其他的对象或者外部的 URL           |
 
 **示例**
 
@@ -1010,13 +1004,13 @@ API 方法在 minio-go SDK 版本 v3.0.3 中提供的 PutObjectWithSize，PutObj
 
 **参数**
 
-| 参数         | 类型                     | 描述                                                                                                                                                                                |
-| :----------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`        | _context.Context_        | 请求上下文                                                                                                                                                                          |
-| `bucketName` | _string_                 | 存储桶名称                                                                                                                                                                          |
-| `objectName` | _string_                 | 对象的名称                                                                                                                                                                          |
-| `reader`     | _io.Reader_              | 任何实现 io.Reader 的 Go 类型                                                                                                                                                       |
-| `objectSize` | _int64_                  | 上传的对象的大小，-1 代表未知                                                                                                                                                       |
+| 参数         | 类型                     | 描述                                                         |
+| :----------- | :----------------------- | :----------------------------------------------------------- |
+| `ctx`        | _context.Context_        | 请求上下文                                                   |
+| `bucketName` | _string_                 | 存储桶名称                                                   |
+| `objectName` | _string_                 | 对象的名称                                                   |
+| `reader`     | _io.Reader_              | 任何实现 io.Reader 的 Go 类型                                |
+| `objectSize` | _int64_                  | 上传的对象的大小，-1 代表未知                                |
 | `opts`       | _minio.PutObjectOptions_ | 允许用户设置可选的自定义元数据，content-type，content-encoding，content-disposition 以及 cache-control headers，传递加密模块以加密对象，并可选地设置 multipart put 操作的线程数量。 |
 
 **示例**
@@ -1058,11 +1052,11 @@ fmt.Println("Successfully uploaded bytes: ", n)
 
 **参数**
 
-| 参数         | 类型                     | 描述                                                                                                                                                                                |
-| :----------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bucketName` | _string_                 | 存储桶名称                                                                                                                                                                          |
-| `objectName` | _string_                 | 对象的名称                                                                                                                                                                          |
-| `filePath`   | _string_                 | 要上传的文件的路径                                                                                                                                                                  |
+| 参数         | 类型                     | 描述                                                         |
+| :----------- | :----------------------- | :----------------------------------------------------------- |
+| `bucketName` | _string_                 | 存储桶名称                                                   |
+| `objectName` | _string_                 | 对象的名称                                                   |
+| `filePath`   | _string_                 | 要上传的文件的路径                                           |
 | `opts`       | _minio.PutObjectOptions_ | 允许用户设置可选的自定义元数据，content-type，content-encoding，content-disposition 以及 cache-control headers，传递加密模块以加密对象，并可选地设置 multipart put 操作的线程数量。 |
 
 **示例**
@@ -1086,12 +1080,12 @@ fmt.Println("Successfully uploaded bytes: ", n)
 
 **参数**
 
-| 参数         | 类型                     | 描述                                                                                                                                                                                |
-| :----------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`        | _context.Context_        | 请求上下文                                                                                                                                                                          |
-| `bucketName` | _string_                 | 存储桶名称                                                                                                                                                                          |
-| `objectName` | _string_                 | 对象的名称                                                                                                                                                                          |
-| `filePath`   | _string_                 | 要上传的文件的路径                                                                                                                                                                  |
+| 参数         | 类型                     | 描述                                                         |
+| :----------- | :----------------------- | :----------------------------------------------------------- |
+| `ctx`        | _context.Context_        | 请求上下文                                                   |
+| `bucketName` | _string_                 | 存储桶名称                                                   |
+| `objectName` | _string_                 | 对象的名称                                                   |
+| `filePath`   | _string_                 | 要上传的文件的路径                                           |
 | `opts`       | _minio.PutObjectOptions_ | 允许用户设置可选的自定义元数据，content-type，content-encoding，content-disposition 以及 cache-control headers，传递加密模块以加密对象，并可选地设置 multipart put 操作的线程数量。 |
 
 **示例**
