@@ -45,7 +45,7 @@
 
 ### 启动命令：
 
-```shell
+```
 //启动docker；4001端口用于网络连接
 sudo docker run -d --stop-timeout 30 \
     -p <External Port Num>:<Port Num> \
@@ -69,7 +69,7 @@ sudo docker run -d --stop-timeout 30 \
 
 ### 日志文件：
 
-在< storage dir >/.mefs 目录下，启动日志daemon.stdout.xx以及logs目录下的运行日志；
+在< storage dir >/.mefs 目录下，存在启动日志daemon.stdout.xx以及logs目录下的运行日志；
 
 通过运行日志，可以查看keeper节点运行时的状况；运行出错时，可以查看启动日志；
 
@@ -80,5 +80,5 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
-每个命令的参数解释见[使用文档](https://github.com/memoio/docs)
+每个命令的参数解释见[使用文档](https://github.com/memoio/docs/cmd)
 

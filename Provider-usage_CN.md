@@ -69,13 +69,15 @@ sudo docker run -d --stop-timeout 30 \
 * STORAGESIZE：提供的存储空间大小，例如10GB、1000MB、1TB等，默认为1TB；
 * STORAGEPRICE：提供存储空间单价，单位token/MB/hour，默认4 * 10^9；
 * STORAGEDURATION：提供存储时间，单位day，默认100；
-* POSENABLE：是否启用冷数据填充功能，设置true开启，会填充质押数据量的 70%；默认为false；
+* POSENABLE：是否启用冷数据填充功能，设置true开启；默认为false；会填充质押数据量的 70\%;
 * storage dir：数据目录；
 * keystore dir：注册后导出的keyfile所在的位置，keyfile的名字即WALLET；
 
+第一次启动需要大概20min左右。
+
 ### 日志文件：
 
-在< storage dir >/.mefs 目录下，启动日志daemon.stdout.xx以及logs目录下的运行日志；
+在< storage dir >/.mefs 目录下，存在启动日志daemon.stdout.xx以及logs目录下的运行日志；
 
 通过运行日志，可以查看provider节点运行时的状况；运行出错时，可以查看启动日志；
 
@@ -86,4 +88,5 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
-每个命令的参数解释见[使用文档](https://github.com/memoio/docs)
+每个命令的参数解释见[使用文档](https://github.com/memoio/docs/cmd)
+

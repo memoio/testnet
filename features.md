@@ -1,50 +1,50 @@
-# 功能介绍
+# Features
 
-## user
+## User
 
-### 完成
+### Completed
 
-- 存储订单：query 合约部署，可以设置需要的存储时长，大小和价格；
-- 存储订单匹配；
-- 存储订单签订，upkeeping 合约部署；
-- 用户空间 LFS；
-- 上传和下载功能；
-- 下载支付；
-- upkeeping 合约的续约，安全性提升；
-- S3 接口；
-- 数据格式优化；
-- 用户空间的 hash 值链上保存；
-- 用户分享文件；
+- Storage order: query-contract deployment, you can set the required storage duration, size and price；
+- Store order matching；
+- Sign storage order and deploy upkeeping contract;
+- User space LFS;
+- Upload and download functions;
+- Download payment；
+- Upkeeping contract renewal to improve security;
+- S3 interface;
+- Data format optimization;
+- The hash value of the user space is stored on the chain;
+- Users share files;
 
 ## provider
 
-### 完成
+### Completed
 
-- 角色合约的设置
-- 存储市场：offer 合约的部署，设置自己可以提供的空间，时长，以及价格；
-- user 的数据保存；
-- user 数据的挑战相应；
-- user 数据的修复；
-- 数据冷启动的 pos 功能；
-- 质押空间；
-- pos 数据量的验证；
-- provider收入展示
+- Role-contract settings;
+- Storage market: the deployment of offer contracts, setting the space, duration, and price you can provide;
+- User's data storage;
+- Response to challenges to user data;
+- Repair of user data;
+- Pos function of data cold start;
+- Pledge space;
+- Verification of pos data volume;
+- Provider's revenue display;
 
-- 退出前的数据迁移
+- Data migration before exit;
 
 ## keeper
 
-### 完成
+### completed
 
-- 角色合约的设置；
-- 矿池模式，即 provider 可以设置自己的主 keeper；
-- user 的元数据保存；
-- user 数据的 PDP 公开验证；
-- user 数据的修复；
-- 存储订单的时空支付；
-- 存储订单在价格、空间和时间维度进行匹配；
+- Setting of role contract;
+- Mining pool mode, that is, the provider can set its own master keeper;
+- Save the metadata of user;
+- PDP public verification of user data;
+- Repair of user data；
+- Time and space payment for storage order;
+- Store orders are matched in the dimensions of price, space and time;
 
-### 进展中
+### In progress
 
-- 矿池模式下的修复优化；
-- keeper 退出机制
+- Optimize the repair in the mining pool mode;
+- Optimize the keeper exit mechanism;
