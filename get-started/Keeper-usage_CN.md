@@ -80,5 +80,5 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
-每个命令的参数解释见[使用文档](https://github.com/memoio/docs/cmd)
+每个命令的参数解释见[使用文档](/docs/cmd/mefs-keeper-command_CN.md)
 

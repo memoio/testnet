@@ -87,4 +87,4 @@ Through the running log, you can view the running status of the keeper node; whe
 > sudo docker exec -it <container name> bash
 ```
 
-The parameter explanation of each command can be found in the [documentation](https://github.com/memoio/docs).
+The parameter explanation of each command can be found in the [documentation](/docs/cmd/mefs-provider-command.md).

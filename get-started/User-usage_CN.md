@@ -76,6 +76,6 @@ sudo docker run -d --stop-timeout 30 \
 > sudo docker exec -it <container name> bash
 ```
 
-- cli 方式使用见[命令文档](https://github.com/memoio/docs/cmd)
+- cli 方式使用见[命令文档](/docs/cmd/mefs-user-command_CN.md)
 
-- S3 接口使用见[S3文档](https://github.com/memoio/docs/api)
+- S3 接口使用见[S3文档](/docs/api/s3-sdk-go_CN.md)
